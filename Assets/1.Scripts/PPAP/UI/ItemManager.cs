@@ -138,7 +138,7 @@ public class ItemManager : MonoBehaviour
         }
         _image.transform.Rotate(new Vector3(0,0,-45));
         Vector3 bombPosition = choosedData.DIRECTION.Equals("U")?
-                                (_image.transform.FindChild("upPosition").transform.position)
+                                (_image.transform.Find("upPosition").transform.position)
                                 :_image.transform.position;
 
         

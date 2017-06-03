@@ -36,7 +36,7 @@ public class audiomanager : MonoBehaviour {
 
 	public AudioSource LoadResourcesSound(string groupName,string fileName) {
 
-		GameObject 	goSound 	= transform.FindChild (soundGroup + groupName).gameObject;
+		GameObject 	goSound 	= transform.Find (soundGroup + groupName).gameObject;
 		AudioSource audioSource = goSound.AddComponent<AudioSource> ();
 		audioSource.playOnAwake = false;
 
@@ -47,7 +47,7 @@ public class audiomanager : MonoBehaviour {
 	}
     
 	public AudioSource FindAudioSource(string groupName,string soundName) {
-		GameObject goSound = transform.FindChild (soundGroup + groupName).gameObject;
+		GameObject goSound = transform.Find (soundGroup + groupName).gameObject;
 		AudioSource[] audioSourceList = goSound.GetComponents<AudioSource> ();
 		
 		foreach (AudioSource audioSource in audioSourceList) {
@@ -60,7 +60,7 @@ public class audiomanager : MonoBehaviour {
 	}
 
 	public AudioSource[] FindAudioSource(string groupName) {
-		GameObject goSound = transform.FindChild (soundGroup + groupName).gameObject;
+		GameObject goSound = transform.Find (soundGroup + groupName).gameObject;
 		return goSound.GetComponents<AudioSource> ();
 	}
 
