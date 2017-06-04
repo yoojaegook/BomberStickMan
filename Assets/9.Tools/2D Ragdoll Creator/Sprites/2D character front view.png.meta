@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 0228f5f3c1a99e246ba869cfd1ad3152
+timeCreated: 1496498760
+licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
     21300000: upper arm 1
@@ -15,12 +17,12 @@ TextureImporter:
     21300020: leg 2
     21300022: leg 1
     21300024: lower arm 2
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -28,11 +30,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -48,19 +51,63 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings:
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   - buildTarget: iPhone
     maxTextureSize: 1024
-    textureFormat: -2
+    textureFormat: 2
+    textureCompression: 1
     compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+  - buildTarget: Standalone
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: upper arm 1
+    - serializedVersion: 2
+      name: upper arm 1
       rect:
         serializedVersion: 2
         x: 120
@@ -68,9 +115,12 @@ TextureImporter:
         width: 76
         height: 62
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: head
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: head
       rect:
         serializedVersion: 2
         x: 204
@@ -78,9 +128,12 @@ TextureImporter:
         width: 76
         height: 108
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: upper arm 2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: upper arm 2
       rect:
         serializedVersion: 2
         x: 291
@@ -88,9 +141,12 @@ TextureImporter:
         width: 73
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: lower arm 1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: lower arm 1
       rect:
         serializedVersion: 2
         x: 47
@@ -98,9 +154,12 @@ TextureImporter:
         width: 73
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: neck
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: neck
       rect:
         serializedVersion: 2
         x: 232
@@ -108,9 +167,12 @@ TextureImporter:
         width: 21
         height: 59
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: wrist 1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: wrist 1
       rect:
         serializedVersion: 2
         x: 4
@@ -118,9 +180,12 @@ TextureImporter:
         width: 40
         height: 40
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: thigh 2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: thigh 2
       rect:
         serializedVersion: 2
         x: 114
@@ -128,9 +193,12 @@ TextureImporter:
         width: 27
         height: 158
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: body
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: body
       rect:
         serializedVersion: 2
         x: 192
@@ -138,9 +206,12 @@ TextureImporter:
         width: 100
         height: 181
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: thigh 1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: thigh 1
       rect:
         serializedVersion: 2
         x: 344
@@ -148,9 +219,12 @@ TextureImporter:
         width: 28
         height: 158
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: wrist 2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: wrist 2
       rect:
         serializedVersion: 2
         x: 436
@@ -158,9 +232,12 @@ TextureImporter:
         width: 38
         height: 42
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: leg 2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: leg 2
       rect:
         serializedVersion: 2
         x: 107
@@ -168,9 +245,12 @@ TextureImporter:
         width: 41
         height: 125
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: leg 1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: leg 1
       rect:
         serializedVersion: 2
         x: 336
@@ -178,9 +258,12 @@ TextureImporter:
         width: 44
         height: 130
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: lower arm 2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: lower arm 2
       rect:
         serializedVersion: 2
         x: 361
@@ -188,7 +271,12 @@ TextureImporter:
         width: 68
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
