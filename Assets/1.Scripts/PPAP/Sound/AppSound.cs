@@ -28,6 +28,8 @@ public class AppSound : MonoBehaviour {
 	string sceneName = "non";
     public float SoundBGMVolume = 0.7f;
     public float SoundSEVolume = 1.0f;
+    float PreSoundBGMVolume = 0.0f;
+    float PreSoundSEVolume = 0.0f;
 
 	// === 코드 =============================================
 	void Start () {
@@ -57,15 +59,26 @@ public class AppSound : MonoBehaviour {
 
 		instance = this;
 	}
-
+	public void Mute()
+	{
+		PreSoundBGMVolume=SoundBGMVolume;
+		PreSoundSEVolume=SoundSEVolume;
+	}
+	public void Unmute()
+	{
+		SoundBGMVolume = PreSoundBGMVolume;
+		SoundSEVolume = PreSoundSEVolume;
+	}
 	void Update() {
+	
+        // 볼륨 설정
+        fm.SetVolume("BGM", SoundBGMVolume);
+        fm.SetVolume("SE", SoundSEVolume);
 		// 씬이 바뀌었는지 검사
 		if (sceneName != SceneManager.GetActiveScene().name) {
 			sceneName = SceneManager.GetActiveScene().name;
 
-			// 볼륨 설정
-			fm.SetVolume("BGM",SoundBGMVolume);
-			fm.SetVolume("SE" ,SoundSEVolume);
+			
 
 			// 배경음 재생
 			

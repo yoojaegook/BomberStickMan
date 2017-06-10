@@ -13,10 +13,10 @@ public class CNewTitle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.anyKey)
-        {
-            CGameManager.Instance.LoadScene("InGameScene");
-        }
+		// if(Input.anyKey)
+        // {
+        //     CGameManager.Instance.LoadScene("InGameScene");
+        // }
 	}
 
     IEnumerator OnOffCoroutine()
@@ -29,5 +29,31 @@ public class CNewTitle : MonoBehaviour {
             yield return wfs;
             touch.SetActive(true);
         }
+    }
+    public void TurnSceneInGame()
+    {
+        CGameManager.Instance.LoadScene("InGameScene");
+    }
+
+// test
+    public void Init()
+    {
+        CAdmobManager.instance.ShowInitAd();
+    }
+    public void Video()
+    {
+        CAdmobManager.instance.ShowVideoAd();
+    }
+    public void Achive_1()
+    {
+        CGooglePlayServiceManager.instane.Achievement_BOMB();
+    }
+    public void OpenAchive()
+    {
+        CGooglePlayServiceManager.instane.OnGooglePlayGamesLeaderBoardUI();
+    }
+    public void OpenLeaderBoard()
+    {
+        CGooglePlayServiceManager.instane.OnGooglePlayGamesAchievementUI();
     }
 }
