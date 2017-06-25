@@ -21,10 +21,10 @@ public class CDataBomb {
     int row = 0;
     int col = 0;
     PowerDirection powerDir = PowerDirection.U;
-    Sprite[] img = null;
+    Sprite img = null;
 
     public CDataBomb(int number, string name, int unLockingCost, int cost, int power,
-        PowerDirection powerDir, int row, int col, Sprite[] img)
+        PowerDirection powerDir, int row, int col, Sprite img)
     {
         this.number = number;
         this.name = name;
@@ -69,8 +69,8 @@ public class CDataBomb {
     {
         return powerDir;
     }
-    public Sprite GetImg(int dir)
+    public Sprite GetImg()
     {
-        return img[dir];
+        return img;
     }
 }

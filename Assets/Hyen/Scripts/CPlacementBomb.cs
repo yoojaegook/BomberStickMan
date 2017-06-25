@@ -6,14 +6,17 @@ using UnityEngine.UI;
 public class CPlacementBomb : MonoBehaviour {
 
     Image image;
+    Text numberText;
     Vector2 oriPos;
     RectTransform rectTransform;
     CBomb bomb;
     CHuman human;
     bool isHuman = false;
     CBomb.BombDir bombDir = CBomb.BombDir.Up;
+    int number = 0;
     private void Awake()
     {
+        numberText = GetComponentInChildren<Text>();
         image = GetComponentInChildren<Image>();
         rectTransform = GetComponent<RectTransform>();
     }
@@ -30,7 +33,18 @@ public class CPlacementBomb : MonoBehaviour {
         this.bomb = bomb;
         oriPos = pos;
         bombDir = bomb.GetBombDir();
+        if(bombDir == CBomb.BombDir.Left || bombDir == CBomb.BombDir.Right)
+        {
+            image.rectTransform.sizeDelta = new Vector2(bomb.GetCol() * bomb.GetSize(), 
+                bomb.GetRow() * bomb.GetSize());
+        }
+        else
+        {
+            image.rectTransform.sizeDelta = rectTransform.sizeDelta;
+        }
+        image.rectTransform.rotation = bomb.GetBombRotQuater();
         isHuman = false;
+        numberText.text = number.ToString();
         //image.rectTransform.localRotation = bomb.GetDirToRot();
 
     }
@@ -40,6 +54,7 @@ public class CPlacementBomb : MonoBehaviour {
         image.color = Color.black;
         rectTransform.sizeDelta = new Vector2(human.GetRow() * human.GetSize(),
             human.GetCol() * human.GetSize());
+        image.rectTransform.sizeDelta = rectTransform.sizeDelta;
         Vector3 setPos = pos;
         setPos.x += (human.GetRow() * 0.5f) * human.GetSize();
         setPos.y -= (human.GetCol() * 0.5f) * human.GetSize();
@@ -47,6 +62,7 @@ public class CPlacementBomb : MonoBehaviour {
         this.human = human;
         oriPos = pos;
         isHuman = true;
+        numberText.enabled = false;
         //image.rectTransform.localRotation = bomb.GetDirToRot();
 
     }
@@ -67,4 +83,25 @@ public class CPlacementBomb : MonoBehaviour {
     {
         return isHuman;
     }
+
+    public void RaycastCon(bool onOff)
+    {
+        image.raycastTarget = onOff;
+    }
+
+    public void NumberUP()
+    {
+        number++;
+        if(number > 10)
+        {
+            number = 0;
+        }
+        numberText.text = number.ToString();
+    }
+
+    public int GetNumber()
+    {
+        return number;
+    }
+
 }

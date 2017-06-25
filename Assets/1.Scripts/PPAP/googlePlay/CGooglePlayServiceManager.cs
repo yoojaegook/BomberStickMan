@@ -66,7 +66,7 @@ public class CGooglePlayServiceManager : MonoBehaviour {
 	//구글 플레이 게임즈 인증 해제 요청
 	public void GooglePlayDeActive()
 	{
-		PlayGamesPlatform play = (PlayGamesPlatform)Social.Active;
+        PlayGamesPlatform play = (PlayGamesPlatform)Social.Active;
 
 		if (play != null)
 		{

@@ -15,6 +15,8 @@ public class CBombBlock : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
     bool choice = false;
 
     Image image;
+    bool unLock = false;
+
     private void Awake()
     {
         image = GetComponent<Image>();
@@ -26,14 +28,25 @@ public class CBombBlock : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         this.onOff = onOff;
     }
 
+    public void SetUnLock(bool unLock)
+    {
+        this.unLock = unLock;
+        SpriteChange();
+    }
+    public bool GetUnLock()
+    {
+        return unLock;
+    }
+
+
     public void OnDrop(PointerEventData eventData)
     {
-        CBombLayoutManager.Instance.PlacementBomb(transform.position, exist);
+        CBombLayoutManager.Instance.PlacementBomb(transform.position, exist, unLock);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("온!!!");
+        //Debug.Log("온!!!");
         CBombLayoutManager.Instance.ChoiceBomb(posX, posY);
     }
 
@@ -56,8 +69,11 @@ public class CBombBlock : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
     private void SpriteChange()
     {
-   
-        if(exist)
+        if(unLock)
+        {
+            image.sprite = onOff[2];
+        }
+        else if(exist)
         {
             image.sprite = onOff[2];
         }
@@ -73,7 +89,6 @@ public class CBombBlock : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
     public void ReSetting()
     {
-        
         exist = false;
         choice = false;
         SpriteChange();

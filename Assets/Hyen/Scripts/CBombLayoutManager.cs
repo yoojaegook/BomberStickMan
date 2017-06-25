@@ -29,13 +29,27 @@ public class CBombLayoutManager : MonoBehaviour {
     public CBombBlock[] bombBlockY7;
     public CBombBlock[] bombBlockY8;
 
+    [Header("AreaPUrchase")]
+    public Text areaPUrchaseText;
+    public Button areaPUrchaseButton;
+
+    public int offX;
+    public int offY;
+
+    Area[] areaList;
+    
     CBombBlock[][] bombBlockS;
+    bool areaUpPossible = true;
+
 
     CBomb bombChoice;
     CHuman humanChoice;
     bool isHuman = false;
     List<CBombBlock> choiceBombBlock;
     List<CPlacementBomb> placementBomb;
+
+    bool createAndDrag = false;
+
     private static CBombLayoutManager instance;
 
     public static CBombLayoutManager Instance
@@ -70,22 +84,50 @@ public class CBombLayoutManager : MonoBehaviour {
         bombBlockS[6] = bombBlockY7;
         bombBlockS[7] = bombBlockY8;
 
-        for (int i = 0; i < bombBlockS.GetLength(0); i++)
-        {
-            for (int j = 0; j < bombBlockS[i].GetLength(0); j++)
-            {
-                bombBlockS[i][j].Init(i, j, onOff);
-            }
-        }
-        for (int i = 0; i < bombs.Length; i++)
-        {
-            bombs[i].Init(CGameManager.Instance.GetDataBombInfo(i));
-        }
-        ui.SetActive(true);
-        reTry.text = CGameManager.Instance.GetGameNumber() + "/5";
-        CGameManager.Instance.SetGoldText(goldText);
+        areaList = new Area[9];
+        areaList[0] = new Area(4, 4);
+        areaList[1] = new Area(4, 3);
+        areaList[2] = new Area(3, 3);
+        areaList[3] = new Area(3, 2);
+        areaList[4] = new Area(2, 2);
+        areaList[5] = new Area(2, 1);
+        areaList[6] = new Area(1, 1);
+        areaList[7] = new Area(1, 0);
+        areaList[8] = new Area(0, 0);
+
+        Setting();
+        AreaButtonSetting();
+
+
+
 
     }
+
+    public void CreateAndDrag(bool drag)
+    {
+        createAndDrag = drag;
+        for (int i = 0; i < placementBomb.Count; i++)
+        {
+            placementBomb[i].RaycastCon(!createAndDrag);
+        }
+    }
+
+    public void AreaButtonSetting()
+    {
+        int areaLevel = CGameManager.Instance.GetAreaLevel();
+        if (areaLevel < 8)
+        {
+            areaPUrchaseButton.interactable = true;
+            areaPUrchaseText.text = areaLevel < 8? ( 8 - areaList[areaLevel+1].GetX()) + " X " +
+                (8 - areaList[areaLevel+1].GetY()) + "\n" + (100 * (areaLevel + 1)) + "G" : "MAX";
+        }
+        else
+        {
+            areaPUrchaseText.text = "MAX";
+            areaPUrchaseButton.interactable = false;
+        }
+    }
+
     public void Blasting()
     {
         if (!human.GetIsPlacement()) return;
@@ -107,6 +149,55 @@ public class CBombLayoutManager : MonoBehaviour {
 
     }
 
+    public void AreaUp()
+    {
+        if (!areaUpPossible) return;
+        // 가격 체크부분
+        int areaLevel = CGameManager.Instance.GetAreaLevel();
+        if (areaLevel >= 8) return;
+        if( CGameManager.Instance.Purchase(100 * (areaLevel + 1)))
+        {
+            if (CGameManager.Instance.GetAreaLevel() < 8)
+            CGameManager.Instance.AreaLevelUp();
+            AreaButtonSetting();
+            ReSetBombBlocks();
+            Setting();
+
+        }
+        else
+        {
+            //돈이 부족
+        }
+    }
+
+    void Setting()
+    {
+        int areaLevel = CGameManager.Instance.GetAreaLevel();
+        areaPUrchaseButton.interactable = true;
+        for (int i = 0; i < bombBlockS.GetLength(0); i++)
+        {
+            for (int j = 0; j < bombBlockS[i].GetLength(0); j++)
+            {
+                bombBlockS[i][j].Init(i, j, onOff);
+                if (j < areaList[areaLevel].GetX() || i < areaList[areaLevel].GetY())
+                {
+                    bombBlockS[i][j].SetUnLock(true);
+                }
+                else
+                {
+                    bombBlockS[i][j].SetUnLock(false);
+                }
+            }
+        }
+        for (int i = 0; i < bombs.Length; i++)
+        {
+            bombs[i].Init(CGameManager.Instance.GetDataBombInfo(i));
+        }
+        ui.SetActive(true);
+        reTry.text = CGameManager.Instance.GetGameNumber() + "/5";
+        CGameManager.Instance.SetGoldText(goldText);
+    }
+
    
     public CBombType CreateBombType(Vector2 pos, CBomb bomb)
     {
@@ -115,6 +206,7 @@ public class CBombLayoutManager : MonoBehaviour {
         CBombType bt = go.GetComponent<CBombType>();
         bt.Init(pos, bomb);
         bombChoice = bomb;
+        CreateAndDrag(true);
         return bt;
     }
     public CBombType CreateBombType(Vector2 pos, CHuman human)
@@ -124,12 +216,19 @@ public class CBombLayoutManager : MonoBehaviour {
         CBombType bt = go.GetComponent<CBombType>();
         bt.Init(pos, human);
         humanChoice = human;
+        CreateAndDrag(true);
         return bt;
+    }
+
+    public void ReMoveCreateAndDrag()
+    {
+        CreateAndDrag(false);
     }
 
     public void ChoiceBomb(int posX, int posY)
     {
         RemoveChoiceBombBlocks();
+        if (!createAndDrag) return;
         if (bombChoice != null)
         {
             for (int i = posX; i < posX + bombChoice.GetCol(); i++)
@@ -146,6 +245,10 @@ public class CBombLayoutManager : MonoBehaviour {
                     }
 
                     if (bombBlockS[i][j].GetExist())
+                    {
+                        break;
+                    }
+                    else if(bombBlockS[i][j].GetUnLock())
                     {
                         break;
                     }
@@ -173,6 +276,10 @@ public class CBombLayoutManager : MonoBehaviour {
                     }
 
                     if (bombBlockS[i][j].GetExist())
+                    {
+                        break;
+                    }
+                    else if(bombBlockS[i][j].GetUnLock())
                     {
                         break;
                     }
@@ -210,12 +317,12 @@ public class CBombLayoutManager : MonoBehaviour {
         choiceBombBlock.Clear();
     }
     
-	public void PlacementBomb(Vector3 pos, bool exist)
+	public void PlacementBomb(Vector3 pos, bool exist, bool unLock)
     {
         if(!isHuman)
         {
             if (bombChoice == null) return;
-            if(!exist)
+            if(!exist && !unLock)
             {
                 if (choiceBombBlock.Count == (bombChoice.GetRow() * bombChoice.GetCol()))
                 {
@@ -246,7 +353,7 @@ public class CBombLayoutManager : MonoBehaviour {
         else
         {
             if (humanChoice == null) return;
-            if (!exist)
+            if (!exist && !unLock)
             {
                 if (choiceBombBlock.Count == (humanChoice.GetRow() * humanChoice.GetCol()))
                 {
@@ -274,7 +381,8 @@ public class CBombLayoutManager : MonoBehaviour {
                 RemoveChoiceBombBlocks();
             }
         }
-        
+        areaUpPossible = false;
+        areaPUrchaseButton.interactable = false;
         bombChoice = null;
     }
 
@@ -296,6 +404,8 @@ public class CBombLayoutManager : MonoBehaviour {
         {
             bombs[i].ReSetting();
         }
+        areaPUrchaseButton.interactable = true;
+        areaUpPossible = true;
         human.ReSetting();
     }
 
@@ -306,4 +416,24 @@ public class CBombLayoutManager : MonoBehaviour {
             bombs[i].BombRot();
         }
     }
+
+    public class Area
+    {
+        int x;
+        int y;
+        public Area(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        public int GetX()
+        {
+            return x;
+        }
+        public int GetY()
+        {
+            return y;
+        }
+    }
+
 }

@@ -20,8 +20,17 @@ public class CBombType : MonoBehaviour {
     public void Init(Vector3 pos, CBomb bomb)
     {
         this.bomb = bomb;
-        bombImage.sprite = bomb.GetSprite();
         rectTransform.sizeDelta = new Vector2(bomb.GetRow() * size, bomb.GetCol() * size);
+        bombImage.sprite = bomb.GetSprite();
+        if(bomb.GetBombDir() == CBomb.BombDir.Left || bomb.GetBombDir() == CBomb.BombDir.Right)
+        {
+            bombImage.rectTransform.sizeDelta = new Vector2(bomb.GetCol() * size, bomb.GetRow() * size);
+        }
+        else
+        {
+            bombImage.rectTransform.sizeDelta = rectTransform.sizeDelta;
+        }
+        bombImage.rectTransform.rotation = bomb.GetBombRotQuater();
         //bombImage.rectTransform.localRotation = bomb.GetDirToRot();
     }
     public void Init(Vector3 pos, CHuman human)
@@ -30,6 +39,7 @@ public class CBombType : MonoBehaviour {
         bombImage.sprite = this.human.GetSprite();
         bombImage.color = Color.black;
         rectTransform.sizeDelta = new Vector2(this.human.GetRow() * size, this.human.GetCol() * size);
+        bombImage.rectTransform.sizeDelta = rectTransform.sizeDelta;
         //bombImage.rectTransform.localRotation = bomb.GetDirToRot();
     }
     public Sprite GetBombImg()

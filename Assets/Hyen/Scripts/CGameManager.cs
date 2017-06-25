@@ -11,22 +11,22 @@ public class CGameManager : MonoBehaviour {
     // 게임 메이저로 넘어가야됨
     CDataBombInfo[] dataBombInfo;
     CDataBomb[] dataBomb;
-    public Sprite[] bombImgs1;
-    public Sprite[] bombImgs2;
-    public Sprite[] bombImgs3;
-    public Sprite[] bombImgs4;
-    public Sprite[] bombImgs5;
-    public Sprite[] bombImgs6;
-    public Sprite[] bombImgs7;
-    public Sprite[] bombImgs8;
+    public Sprite bombImgs1;
+    public Sprite bombImgs2;
+    public Sprite bombImgs3;
+    public Sprite bombImgs4;
+    public Sprite bombImgs5;
+    public Sprite bombImgs6;
+    public Sprite bombImgs7;
+    public Sprite bombImgs8;
 
     int gameNumber = 1;
 
     int maximumDistence = 0;
     int thisGameMaximumDistence = 0;
-    int gold = 0;
+    int gold = 5000;
     int thisGameGold = 0;
-
+    int areaLevel = 0;
     Text goldText;
 
     public int MaximumDistence { get { return maximumDistence; } set
@@ -202,5 +202,15 @@ public class CGameManager : MonoBehaviour {
         this.goldText = goldText;
         if (this.goldText != null)
             this.goldText.text = gold.ToString() + "G";
+    }
+
+    public void AreaLevelUp()
+    {
+        if (areaLevel < 8)
+        areaLevel++;
+    }
+    public int GetAreaLevel()
+    {
+        return areaLevel;
     }
 }

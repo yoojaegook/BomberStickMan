@@ -29,7 +29,7 @@ public class CBomb : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public void Init(CDataBombInfo dataBombInfo)
     {
         this.dataBombInfo = dataBombInfo;
-        image.sprite = dataBombInfo.DataBomb.GetImg(0);
+        image.sprite = dataBombInfo.DataBomb.GetImg();
         bombNumber = this.dataBombInfo.BombNumber;
         Setting();
     }
@@ -94,12 +94,7 @@ public class CBomb : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(dragBombType != null)
-        {
-            //Debug.Log("삭제 실행 체크");
-            Destroy(dragBombType.gameObject);
-            dragBombType = null;
-        }
+        DragDelete();
         //Debug.Log("OnEndDrag");
         //if (m_DraggingIcons[eventData.pointerId] != null)
         //    Destroy(m_DraggingIcons[eventData.pointerId]);
@@ -114,28 +109,13 @@ public class CBomb : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
             //Debug.Log("삭제 실행 체크");
             Destroy(dragBombType.gameObject);
             dragBombType = null;
+            CBombLayoutManager.Instance.ReMoveCreateAndDrag();
         }
     }
 
     public Sprite GetSprite()
     {
-        Sprite re = null;
-        switch (bombDir)
-        {
-            case BombDir.Up:
-                re = dataBombInfo.DataBomb.GetImg(0);
-                break;
-            case BombDir.Right:
-                re = dataBombInfo.DataBomb.GetImg(1);
-                break;
-            case BombDir.Down:
-                re = dataBombInfo.DataBomb.GetImg(2);
-                break;
-            case BombDir.Left:
-                re = dataBombInfo.DataBomb.GetImg(3);
-                break;
-        }
-        return re;
+        return dataBombInfo.DataBomb.GetImg();
     }
     public BombDir GetBombDir()
     {
@@ -208,23 +188,45 @@ public class CBomb : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             case BombDir.Up:
                 bombDir = BombDir.Right;
-                image.sprite = dataBombInfo.DataBomb.GetImg(1);
+                image.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 270f));
                 break;
             case BombDir.Right:
                 bombDir = BombDir.Down;
-                image.sprite = dataBombInfo.DataBomb.GetImg(2);
+                image.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
                 break;
             case BombDir.Down:
                 bombDir = BombDir.Left;
-                image.sprite = dataBombInfo.DataBomb.GetImg(3);
+                image.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
                 break;
             case BombDir.Left:
                 bombDir = BombDir.Up;
-                image.sprite = dataBombInfo.DataBomb.GetImg(0);
+                image.rectTransform.rotation = Quaternion.identity;
                 break;
         }
         //image.rectTransform.localRotation = GetDirToRot();
     }
+
+    public Quaternion GetBombRotQuater()
+    {
+        Quaternion qu = Quaternion.identity;
+        switch (bombDir)
+        {
+            case BombDir.Up:
+                qu = Quaternion.identity;
+                break;
+            case BombDir.Right:
+                qu = Quaternion.Euler(new Vector3(0f, 0f, 270f));
+                break;
+            case BombDir.Down:
+                qu = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+                break;
+            case BombDir.Left:
+                qu = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+                break;
+        }
+        return qu;
+    }
+
     public void BombPurchase()
     {
         if (noPurchase) return;

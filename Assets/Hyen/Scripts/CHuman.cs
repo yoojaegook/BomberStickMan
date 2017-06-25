@@ -46,6 +46,7 @@ public class CHuman : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
             //Debug.Log("삭제 실행 체크");
             Destroy(dragBombType.gameObject);
             dragBombType = null;
+            CBombLayoutManager.Instance.ReMoveCreateAndDrag();
         }
     }
 
